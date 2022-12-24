@@ -1,10 +1,10 @@
-package ee.vladislav.wisercatbackend;
+package ee.vladislav.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WisercatBackendApplicationTests {
+class BackendApplicationTests {
 
     @Test
     void contextLoads() {
