@@ -1,0 +1,6 @@
+<div class="py-5 text-center">
+    <h2 *ngIf="!loadedPet">Add a new pet</h2>
+    <h2 *ngIf="loadedPet">Edit a pet</h2>
+</div>
+<a routerLink="/" class="btn btn-primary btn-lg">Cancel</a>
+<app-edit-form [pet]="loadedPet"></app-edit-form>

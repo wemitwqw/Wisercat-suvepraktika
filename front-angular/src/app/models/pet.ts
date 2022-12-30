@@ -1,7 +1,12 @@
+import { IAnimalCountries } from "./animalCountries"
+import { IAnimalFurColors } from "./animalFurColors"
+import { IAnimalTypes } from "./animalTypes"
+
 export interface IPet {
-    id: number
+    id?: number
     name: string
     code: string
-    type: string
-    fur_color: string
+    animalType: IAnimalTypes
+    fur_color: IAnimalFurColors
+    country: IAnimalCountries
 }

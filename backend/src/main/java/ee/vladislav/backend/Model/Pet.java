@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 
 @Getter
@@ -22,8 +23,16 @@ public class Pet {
     @NotBlank
     private String code;
     @NotBlank
-    private String type;
+    @OneToOne
+    @JoinColumn(name="animal_type_id", referencedColumnName="id")
+    private AnimalType animalType;
     @NotBlank
-    private String fur_color;
+    @OneToOne
+    @JoinColumn(name="fur_color_id", referencedColumnName = "id")
+    private AnimalFurColor fur_color;
+    @NotBlank
+    @OneToOne
+    @JoinColumn(name="country_id", referencedColumnName = "id")
+    private AnimalCountry country;
 
 }

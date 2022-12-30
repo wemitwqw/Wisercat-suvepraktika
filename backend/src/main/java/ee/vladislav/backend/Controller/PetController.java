@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api")
 public class PetController {
     @Autowired
@@ -22,8 +22,17 @@ public class PetController {
         return petService.getAllPets();
     }
 
-    @PostMapping("/add")
-    public void addPet(@RequestBody Pet pet) {
-        petService.updatePet(pet);
+    @GetMapping("/{id}")
+    public Pet getPetById(@PathVariable String id) throws ExecutionException {
+        return petService.getById(id);
+    }
+
+    @PostMapping("/edit")
+    public void addPet(@RequestBody Pet pet) throws ExecutionException {
+        petService.addPet(pet);
+    }
+    @PutMapping("/edit/{id}")
+    public void editPet(@PathVariable String id, @RequestBody Pet pet) {
+        petService.editPet(id, pet);
     }
 }

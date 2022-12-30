@@ -1,26 +1,5 @@
 <div class="container">
-  <div class="py-5 text-center">
-    <h2>Pets</h2>
-  </div>
-
   <div class="row">
-    <a href="add.html" class="btn btn-primary">Add pet</a>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Code</th>
-          <th scope="col">Type</th>
-          <th scope="col">Fur color</th>
-          <th scope="col">Country</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <app-pet [pet]="pets[0]" ></app-pet>
-        <app-pet [pet]="pets[1]" ></app-pet>
-      </tbody>
-    </table>
+    <router-outlet></router-outlet>
   </div>
 </div>

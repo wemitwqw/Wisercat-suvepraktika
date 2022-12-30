@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { IPet } from './models/pet';
-import { pets as data } from './data/pets';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +6,7 @@ import { pets as data } from './data/pets';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'front-angular';
+  title: string = 'front-angular';
 
-  pets: IPet[] = data;
+  
 }
