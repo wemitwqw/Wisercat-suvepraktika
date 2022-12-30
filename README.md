@@ -1,13 +1,13 @@
 # Wisercat-assignment
 
 TODO:  
-Create a Spring Boot application.  -TEHTUD. 
-User is displayed a list of pets that the user has entered (see the provided html). -TEHTUD. 
-User can add pets (see the provided html). -TEHTUD. 
-A pet has a name, an identification code, a type (CAT, DOG, etc) and a fur color. -TEHTUD. 
-When a new pet is saved, validate all mandatory fields. -TEHTUD. 
-Store all input data to database. -TEHTUD. 
-Values of select lists have to be populated with data from database. -TEHTUD. 
+Create a Spring Boot application.  -TEHTUD.   
+User is displayed a list of pets that the user has entered (see the provided html). -TEHTUD.   
+User can add pets (see the provided html). -TEHTUD.   
+A pet has a name, an identification code, a type (CAT, DOG, etc) and a fur color. -TEHTUD.   
+When a new pet is saved, validate all mandatory fields. -TEHTUD.   
+Store all input data to database. -TEHTUD.   
+Values of select lists have to be populated with data from database. -TEHTUD.   
 
 Optional TODO:  
 •	User can edit pets. -TEHTUD. 
