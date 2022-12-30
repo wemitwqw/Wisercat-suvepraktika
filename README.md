@@ -10,13 +10,13 @@ Store all input data to database. -TEHTUD.
 Values of select lists have to be populated with data from database. -TEHTUD.   
 
 Optional TODO:  
-•	User can edit pets. -TEHTUD. 
+•	User can edit pets. -TEHTUD.   
 •	Log in with one of the created user accounts (registration does not have to be implemented).  
 •	Create 3 user accounts into the database (username and password).  
 •	User is not allowed to see other user’s pets.  
 •	User can sort pets by all columns in the table.  
-•	A pet has a country of origin. -TEHTUD. 
-•	Validate form fields both inline and in the back-end. -TEHTUD. 
+•	A pet has a country of origin. -TEHTUD.   
+•	Validate form fields both inline and in the back-end. -TEHTUD.   
 
 Technical requirements:  
 •	Application has to run with 1 click or command.   
@@ -37,6 +37,6 @@ Requirements on täidetud.
 
 EDIT:  
 Abiks oli tavaliselt stackoverflow, vaatasin ka bezkoder-I (bezkoder.com) näiteid. Kogu ülesannet lahendasin ära umbes 14 tunniga 28.12-29.12.   
-Backend oli valmis kiiresti, suuremad probleemid tekkisid frontendiga, kuna enne olin ainult Reacti kasutanud. Aga sain hakkama.   
-Kui oleks varem ülesandega alustanud, siis muidugi teeksin ka userite implementatsiooni valmis, kuid kahjuks läksin niigi tähtajast üle. Viimased 2 tundi olin võidelnud sellega, et frontendil pet edit vaatel selectorid ei tahtnud näidata defaultina looma atribuute valuesi (type, fur color, country).  Lahendus oli väga lihtne, kuid kulutas mul palju aega ära. Unustasin lisada value propertyt html templatis.  
+Backend oli valmis kiiresti, suuremad probleemid tekkisid frontendiga, kuna enne olin ainult Reacti kasutanud. Aga sain hakkama.     
+Kui oleks varem ülesandega alustanud, siis muidugi teeksin ka userite implementatsiooni valmis, kuid kahjuks läksin niigi tähtajast üle. Viimased 2 tundi olin võidelnud sellega, et frontendil pet edit vaatel selectorid ei tahtnud näidata defaultina looma atribuute valuesi (type, fur color, country).    Lahendus oli väga lihtne, kuid kulutas mul palju aega ära. Unustasin lisada value propertyt html templatis.  
  
