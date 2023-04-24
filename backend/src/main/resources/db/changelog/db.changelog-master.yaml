@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create-table-animal_types-20230424.sql
+  - include:
+      file: db/changelog/create-table-countries-20230424.sql
+  - include:
+      file: db/changelog/create-table-fur_colors-20230424.sql
+  - include:
+      file: db/changelog/create-table-pets-20230424.sql
+  - include:
+      file: db/changelog/insert-into-animal_types_20230424.sql
+  - include:
+      file: db/changelog/insert-into-countries_20230424.sql
+  - include:
+      file: db/changelog/insert-into-fur_colors_20230424.sql
+  - include:
+      file: db/changelog/insert-into-pets_20230424.sql

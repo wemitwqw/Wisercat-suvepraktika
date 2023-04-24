@@ -17,15 +17,15 @@ public class PetService {
         this.petRepository = petRepository;
     }
 
-    public List<Pet> getAllPets() throws ExecutionException {
+    public List<Pet> getAllPets() {
         return petRepository.findAll();
     }
 
-    public Pet getById(String id) throws ExecutionException {
+    public Pet getById(String id) {
         return petRepository.findById(id).get();
     }
 
-    public void addPet(Pet pet) throws ExecutionException {
+    public void addPet(Pet pet) {
         petRepository.save(pet);
     }
     public void editPet(String id, Pet pet) {

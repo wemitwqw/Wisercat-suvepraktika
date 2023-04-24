@@ -1,0 +1,48 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+-- liquibase formatted sql
+-- changeset liquibase:4
+
+CREATE TABLE pets (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR, code VARCHAR UNIQUE,
+    animal_type_id INT NOT NULL,
+    fur_color_id INT NOT NULL,
+    country_id INT NOT NULL,
+    owner_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (animal_type_id) REFERENCES animal_types,
+    FOREIGN KEY (country_id) REFERENCES countries,
+    FOREIGN KEY (fur_color_id) REFERENCES fur_colors,
+    FOREIGN KEY (owner_id) REFERENCES users
+    );
+
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Rickard', 'putgp5us', 3, 2, 5, 2);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Gracia', 'ingmcb4d', 2, 2, 3, 2);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Lane', 'vrqq7fgf', 1, 4, 2, 1);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Merrielle', '54lpxz4h', 1, 3, 5, 3);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Penn', '5u46t8aq', 4, 2, 5, 1);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Ode', 'di3ck77n', 1, 4, 2, 2);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Bonny', 'kzykn8tk', 1, 4, 4, 2);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Ula', 'icj861f5', 1, 4, 5, 3);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Lexie', 'v9xobfp6', 3, 1, 1, 2);
+
+insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
+values ('Gretal', 'y4jrbck3', 1, 2, 2, 2);

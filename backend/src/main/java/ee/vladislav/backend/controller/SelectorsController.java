@@ -16,11 +16,11 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping(value = "/api/selectors/")
 public class SelectorsController {
 
-    @Autowired
-    SelectorsService selectorsService;
+//    @Autowired
+//    SelectorsService selectorsService;
 
-    @GetMapping("/")
-    public List<Any> getAll() throws ExecutionException {
-        return selectorsService.getAllSelectorData();
-    }
+//    @GetMapping("/")
+//    public List<Any> getAll() throws ExecutionException {
+//        return selectorsService.getAllSelectorData();
+//    }
 }
