@@ -4,6 +4,6 @@
 
 CREATE TABLE fur_colors (
     id INT NOT NULL AUTO_INCREMENT,
-    fur_color VARCHAR UNIQUE,
+    color VARCHAR UNIQUE,
     PRIMARY KEY (id)
     );

@@ -17,9 +17,9 @@ import javax.validation.constraints.NotBlank;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank
-//    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn
     private String country;
 }

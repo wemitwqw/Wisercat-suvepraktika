@@ -1,16 +1,19 @@
 package ee.vladislav.backend.controller;
 
+import ee.vladislav.backend.dto.PetDTO;
 import ee.vladislav.backend.model.Pet;
 import ee.vladislav.backend.service.PetService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/pets")
 public class PetController {
     private final PetService petService;
 
@@ -19,18 +22,19 @@ public class PetController {
     }
 
     @GetMapping("/")
-    public List<Pet> getPets() {
-        return petService.getAllPets();
+    public ResponseEntity<List<PetDTO>> getPets() {
+        return ResponseEntity.ok().body(petService.getAllPets());
     }
 
     @GetMapping("/{id}")
-    public Pet getPetById(@PathVariable String id) {
-        return petService.getById(id);
+    public ResponseEntity<Optional<PetDTO>> getPetById(@PathVariable String id) {
+        return ResponseEntity.ok().body(petService.getById(id));
     }
 
-    @PostMapping("/edit")
-    public void addPet(@RequestBody Pet pet) {
-        petService.addPet(pet);
+    @PostMapping("/add")
+    public ResponseEntity<PetDTO> addPet(@RequestBody PetDTO petDTO) {
+
+        return ResponseEntity.status(CREATED).body(petService.addPet(petDTO));
     }
 
     @PutMapping("/edit/{id}")

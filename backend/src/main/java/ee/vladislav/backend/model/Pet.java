@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank
     private String name;
@@ -33,7 +33,7 @@ public class Pet {
     @NotBlank
     @OneToOne
     @JoinColumn(name="fur_color_id", referencedColumnName = "id")
-    private FurColor fur_color;
+    private FurColor furColor;
 
     @NotBlank
     @OneToOne

@@ -17,8 +17,9 @@ import javax.validation.constraints.NotBlank;
 public class AnimalType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     @NotBlank
     @PrimaryKeyJoinColumn
-    private String animalType;
+    private String type;
 }

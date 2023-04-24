@@ -4,6 +4,6 @@
 
 CREATE TABLE animal_types (
     id INT NOT NULL AUTO_INCREMENT,
-    animal_type VARCHAR UNIQUE,
+    type VARCHAR UNIQUE,
     PRIMARY KEY (id)
     );

@@ -16,9 +16,9 @@ import javax.validation.constraints.NotBlank;
 public class FurColor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank
-//    @PrimaryKeyJoinColumn
-    private String furColor;
+    @PrimaryKeyJoinColumn
+    private String color;
 }

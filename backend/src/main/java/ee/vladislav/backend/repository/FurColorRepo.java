@@ -4,4 +4,5 @@ import ee.vladislav.backend.model.FurColor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FurColorRepo extends JpaRepository<FurColor, String> {
+    FurColor findFurColorByColor(String color);
 }

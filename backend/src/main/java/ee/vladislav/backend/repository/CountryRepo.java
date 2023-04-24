@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CountryRepo extends JpaRepository<Country, String> {
-    List<Country> findCountryByCountry(String country);
+    Country findCountryByCountry(String country);
 }
