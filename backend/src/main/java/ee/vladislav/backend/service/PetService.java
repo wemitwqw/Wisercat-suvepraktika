@@ -11,11 +11,11 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class PetService {
 
-    @Autowired
-    PetRepo petRepository;
+    private final PetRepo petRepository;
 
-    @Autowired
-    SelectorsService selectorsService;
+    public PetService(PetRepo petRepository) {
+        this.petRepository = petRepository;
+    }
 
     public List<Pet> getAllPets() throws ExecutionException {
         return petRepository.findAll();
