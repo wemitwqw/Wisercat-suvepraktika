@@ -12,12 +12,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "animal_fur_colors")
-public class AnimalFurColor {
+@Table(name = "fur_colors")
+public class FurColor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank
-    @PrimaryKeyJoinColumn
-    private String animalFurColor;
+//    @PrimaryKeyJoinColumn
+    private String furColor;
 }

@@ -33,11 +33,11 @@ public class Pet {
     @NotBlank
     @OneToOne
     @JoinColumn(name="fur_color_id", referencedColumnName = "id")
-    private AnimalFurColor fur_color;
+    private FurColor fur_color;
 
     @NotBlank
     @OneToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
-    private AnimalCountry country;
+    private Country country;
 
 }

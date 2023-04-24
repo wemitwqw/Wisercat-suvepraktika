@@ -13,12 +13,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "animal_countries")
-public class AnimalCountry {
+@Table(name = "countries")
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank
-    @PrimaryKeyJoinColumn
-    private String animalCountry;
+//    @PrimaryKeyJoinColumn
+    private String country;
 }
