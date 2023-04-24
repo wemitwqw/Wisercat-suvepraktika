@@ -1,7 +1,6 @@
-package ee.vladislav.backend.Repository;
+package ee.vladislav.backend.repository;
 
-import ee.vladislav.backend.Model.AnimalType;
-import org.springframework.data.jdbc.repository.query.Query;
+import ee.vladislav.backend.model.AnimalType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AnimalTypeRepo extends JpaRepository<AnimalType, String> {

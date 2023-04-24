@@ -1,8 +1,8 @@
-package ee.vladislav.backend.Service;
+package ee.vladislav.backend.service;
 
-import ee.vladislav.backend.Repository.AnimalCountryRepo;
-import ee.vladislav.backend.Repository.AnimalFurColorRepo;
-import ee.vladislav.backend.Repository.AnimalTypeRepo;
+import ee.vladislav.backend.repository.AnimalCountryRepo;
+import ee.vladislav.backend.repository.AnimalFurColorRepo;
+import ee.vladislav.backend.repository.AnimalTypeRepo;
 import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

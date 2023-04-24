@@ -1,4 +1,4 @@
-package ee.vladislav.backend.Model;
+package ee.vladislav.backend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

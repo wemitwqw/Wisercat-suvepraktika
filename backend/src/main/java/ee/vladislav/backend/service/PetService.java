@@ -1,8 +1,7 @@
-package ee.vladislav.backend.Service;
+package ee.vladislav.backend.service;
 
-import ee.vladislav.backend.Model.AnimalType;
-import ee.vladislav.backend.Model.Pet;
-import ee.vladislav.backend.Repository.PetRepo;
+import ee.vladislav.backend.model.Pet;
+import ee.vladislav.backend.repository.PetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

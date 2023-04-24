@@ -1,6 +1,6 @@
-package ee.vladislav.backend.Controller;
+package ee.vladislav.backend.controller;
 
-import ee.vladislav.backend.Service.SelectorsService;
+import ee.vladislav.backend.service.SelectorsService;
 import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,10 +1,8 @@
-package ee.vladislav.backend.Controller;
+package ee.vladislav.backend.controller;
 
-import ee.vladislav.backend.Model.Pet;
-import ee.vladislav.backend.Repository.PetRepo;
-import ee.vladislav.backend.Service.PetService;
+import ee.vladislav.backend.model.Pet;
+import ee.vladislav.backend.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
