@@ -18,18 +18,23 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank
     private String name;
+
     @NotBlank
     private String code;
+
     @NotBlank
     @OneToOne
     @JoinColumn(name="animal_type_id", referencedColumnName="id")
     private AnimalType animalType;
+
     @NotBlank
     @OneToOne
     @JoinColumn(name="fur_color_id", referencedColumnName = "id")
     private AnimalFurColor fur_color;
+
     @NotBlank
     @OneToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
