@@ -13,21 +13,22 @@ front-angular/npm-debug.log
 front-angular/yarn-error.log
 
 # IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+backend/.idea/
+backend/.project
+backend/.classpath
+backend/.c9/
+backend/*.launch
+backend/.settings/
+backend/*.sublime-workspace
+
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+front-angular/.vscode/*
+front-angular/!.vscode/settings.json
+front-angular/!.vscode/tasks.json
+front-angular/!.vscode/launch.json
+front-angular/!.vscode/extensions.json
+front-angular/.history/*
 
 # Miscellaneous
 front-angular/.angular/cache
