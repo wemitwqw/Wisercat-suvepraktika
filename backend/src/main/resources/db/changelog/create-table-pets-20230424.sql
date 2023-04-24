@@ -4,7 +4,8 @@
 
 CREATE TABLE pets (
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR, code VARCHAR UNIQUE,
+    name VARCHAR NOT NULL,
+    code VARCHAR UNIQUE NOT NULL,
     animal_type_id INT NOT NULL,
     fur_color_id INT NOT NULL,
     country_id INT NOT NULL,
