@@ -1,7 +1,7 @@
 package ee.vladislav.backend.service;
 
-import ee.vladislav.backend.repository.AnimalCountryRepo;
-import ee.vladislav.backend.repository.AnimalFurColorRepo;
+import ee.vladislav.backend.repository.CountryRepo;
+import ee.vladislav.backend.repository.FurColorRepo;
 import ee.vladislav.backend.repository.AnimalTypeRepo;
 import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,9 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class SelectorsService {
     @Autowired
-    AnimalCountryRepo animalCountryRepository;
+    CountryRepo countryRepository;
     @Autowired
-    AnimalFurColorRepo animalFurColorRepository;
+    FurColorRepo furColorRepository;
     @Autowired
     AnimalTypeRepo animalTypeRepository;
 
@@ -25,8 +25,8 @@ public class SelectorsService {
         List countries = new ArrayList<>();
         List colors = new ArrayList<>();
         List types = new ArrayList<>();
-        countries.add(animalCountryRepository.findAll());
-        colors.add(animalFurColorRepository.findAll());
+        countries.add(countryRepository.findAll());
+        colors.add(furColorRepository.findAll());
         types.add(animalTypeRepository.findAll());
         data.addAll(types);
         data.addAll(colors);
