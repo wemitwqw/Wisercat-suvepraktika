@@ -13,7 +13,7 @@ import java.util.Collection;
 
 //@Pattern(regexp = "^(?=.*?\\d)(?=.*?[a-zA-Z])[a-zA-Z\\d]+$", message = "Only letters and numbers allowed in password!")
 @Entity
-public class User implements UserDetails {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,39 +25,16 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public String getPassword() {
+        return password;
     }
 }
 
