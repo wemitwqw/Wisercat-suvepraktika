@@ -1,5 +1,8 @@
 package ee.vladislav.backend.service;
 
+import ee.vladislav.backend.exceptions.AnimalTypeNotAcceptedException;
+import ee.vladislav.backend.exceptions.CountryNotAcceptedException;
+import ee.vladislav.backend.exceptions.FurColorNotAcceptedException;
 import ee.vladislav.backend.model.AnimalType;
 import ee.vladislav.backend.model.Country;
 import ee.vladislav.backend.model.FurColor;
@@ -26,29 +29,50 @@ public class SelectorsService {
         this.animalTypeRepository = animalTypeRepository;
     }
 
-    public List<Country> getAllowedCountries() {
-        return countryRepository.findAll();
-    }
-
-    public List<FurColor> getAllowedFurColors() {
-        return furColorRepository.findAll();
-    }
-
-    public List<AnimalType> getAllowedAnimalTypes() {
-        return animalTypeRepository.findAll();
-    }
-
-//    public List<Any> getAllSelectorData() throws ExecutionException {
-//        List<List> data = new ArrayList<>();
-//        List<Country> countries = new ArrayList<>();
-//        List<FurColor> colors = new ArrayList<>();
-//        List<AnimalType> types = new ArrayList<>();
-//        countries.add(countryRepository.findAll());
-//        colors.add(furColorRepository.findAll());
-//        types.add(animalTypeRepository.findAll());
-//        data.addAll(types);
-//        data.addAll(colors);
-//        data.addAll(countries);
-//        return data;
+//    private List<Country> getAllowedCountries() {
+//        return countryRepository.findAll();
 //    }
+//
+//    private List<FurColor> getAllowedFurColors() {
+//        return furColorRepository.findAll();
+//    }
+//
+//    private List<AnimalType> getAllowedAnimalTypes() {
+//        return animalTypeRepository.findAll();
+//    }
+
+    public AnimalType getAnimalTypeByType(String type) {
+        AnimalType animalTypeEnt = animalTypeRepository.findAnimalTypeByType(type.toLowerCase());
+        if (animalTypeEnt == null) { throw new AnimalTypeNotAcceptedException(); }
+
+        return animalTypeEnt;
+    }
+
+    public FurColor getFurColorByColor(String color) {
+        FurColor furColorEnt = furColorRepository.findFurColorByColor(color.toLowerCase());
+        if (furColorEnt == null) { throw new FurColorNotAcceptedException(); }
+
+        return furColorEnt;
+    }
+
+    public Country getCountryByCountry(String country) {
+        Country countryEnt = countryRepository.findCountryByCountry(country);
+        if (countryEnt == null) { throw new CountryNotAcceptedException(); }
+
+        return countryEnt;
+    }
+
+    public List<List> getAllSelectorData() {
+        List<List> data = new ArrayList<>();
+
+        List<FurColor> colors = new ArrayList<>(furColorRepository.findAll());
+        List<Country> countries = new ArrayList<>(countryRepository.findAll());
+        List<AnimalType> types = new ArrayList<>(animalTypeRepository.findAll());
+
+        data.add(types);
+        data.add(colors);
+        data.add(countries);
+
+        return data;
+    }
 }

@@ -22,66 +22,81 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+
                                                                   HttpStatusCode status, WebRequest request) {
         Map<String, List<String>> body = new HashMap<>();
 
-        List<String> errors = ex.getBindingResult()
+        List<String> err = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
 
-        body.put("errors", errors);
+        body.put("errors", err);
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(PetNotFoundException.class)
-    public ResponseEntity<Object> handlePetNotFound( PetNotFoundException ex, WebRequest webRequest) {
+    @ExceptionHandler({PetNotFoundException.class,
+    })
+    public ResponseEntity<Object> handlePetNotFoundException( PetNotFoundException ex,
+                                                          WebRequest webRequest) {
         ExceptionResponse response = new ExceptionResponse();
+
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("Pet with the provided id not found");
-        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
     }
 
     @ExceptionHandler(AnimalTypeNotAcceptedException.class)
     public ResponseEntity<Object> handleInvalidAnimalType( AnimalTypeNotAcceptedException ex, WebRequest webRequest) {
         ExceptionResponse response = new ExceptionResponse();
+
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("Animal type not accepted");
-        return new ResponseEntity<>(response,HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
     }
 
     @ExceptionHandler(CountryNotAcceptedException.class)
     public ResponseEntity<Object> handleInvalidCountry( CountryNotAcceptedException ex, WebRequest webRequest) {
         ExceptionResponse response = new ExceptionResponse();
+
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("Country type not accepted");
-        return new ResponseEntity<>(response,HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
     }
 
     @ExceptionHandler(FurColorNotAcceptedException.class)
     public ResponseEntity<Object> handleInvalidFurColor( FurColorNotAcceptedException ex, WebRequest webRequest) {
         ExceptionResponse response = new ExceptionResponse();
+
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("Fur color type not accepted");
-        return new ResponseEntity<>(response,HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
     }
 
     @ExceptionHandler(PetCodeAlreadyExistsException.class)
     public ResponseEntity<Object> handlePetCodeAlreadyExists( PetCodeAlreadyExistsException ex, WebRequest webRequest) {
         ExceptionResponse response = new ExceptionResponse();
+
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("Duplicate pet code");
-        return new ResponseEntity<>(response,HttpStatus.CONFLICT);
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
     }
 
     @ExceptionHandler(PetNotAddedException.class)
     public ResponseEntity<Object> handlePetNotAdded( PetNotAddedException ex, WebRequest webRequest) {
         ExceptionResponse response = new ExceptionResponse();
+
         response.setDateTime(LocalDateTime.now());
-        response.setMessage("Pet not added");
-        return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
     }
 
 

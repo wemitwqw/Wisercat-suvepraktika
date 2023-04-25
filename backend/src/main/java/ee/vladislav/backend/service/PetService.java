@@ -21,18 +21,13 @@ public class PetService {
 
     private final PetRepo petRepository;
     private final PetDTOMapper petDTOMapper;
-    private final AnimalTypeRepo animalTypeRepo;
-    private final CountryRepo countryRepo;
-    private final FurColorRepo furColorRepo;
+    private final SelectorsService selectorsService;
 
     public PetService(PetRepo petRepository, PetDTOMapper petDTOMapper,
-                      AnimalTypeRepo animalTypeRepo, CountryRepo countryRepo,
-                      FurColorRepo furColorRepo) {
+                      SelectorsService selectorsService) {
         this.petRepository = petRepository;
         this.petDTOMapper = petDTOMapper;
-        this.animalTypeRepo = animalTypeRepo;
-        this.countryRepo = countryRepo;
-        this.furColorRepo = furColorRepo;
+        this.selectorsService = selectorsService;
     }
 
     public List<PetDTO> getAllPets() {
@@ -43,9 +38,8 @@ public class PetService {
     }
 
     public PetDTO getById(String id) {
-        PetDTO pet = petRepository.findById(id).map(petDTOMapper::entityToDto).orElse(null);
 
-        return pet;
+        return petRepository.findById(id).map(petDTOMapper::entityToDto).orElse(null);
     }
 
     public PetDTO addPet(PetDTO petDTO) {
@@ -86,23 +80,17 @@ public class PetService {
     }
 
     private AnimalType getAnimalType(String type) {
-        AnimalType animalTypeEnt = animalTypeRepo.findAnimalTypeByType(type.toLowerCase());
-        if (animalTypeEnt == null) { throw new AnimalTypeNotAcceptedException(); }
 
-        return animalTypeEnt;
+        return selectorsService.getAnimalTypeByType(type.toLowerCase());
     }
 
     private FurColor getFurColor(String color) {
-        FurColor furColorEnt = furColorRepo.findFurColorByColor(color.toLowerCase());
-        if (furColorEnt == null) { throw new FurColorNotAcceptedException(); }
 
-        return furColorEnt;
+        return selectorsService.getFurColorByColor(color.toLowerCase());
     }
 
     private Country getCountry(String country) {
-        Country countryEnt = countryRepo.findCountryByCountry(country);
-        if (countryEnt == null) { throw new CountryNotAcceptedException(); }
 
-        return countryEnt;
+        return selectorsService.getCountryByCountry(country);
     }
 }

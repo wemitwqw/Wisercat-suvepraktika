@@ -13,4 +13,4 @@ CREATE TABLE pets (
     FOREIGN KEY (animal_type_id) REFERENCES animal_types,
     FOREIGN KEY (country_id) REFERENCES countries,
     FOREIGN KEY (fur_color_id) REFERENCES fur_colors
-    );
+);
