@@ -6,6 +6,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/create-table-fur_colors-20230424.sql
   - include:
+      file: db/changelog/create-table-users-20230425.sql
+  - include:
+      file: db/changelog/create-table-authorities-20230426.sql
+  - include:
       file: db/changelog/create-table-pets-20230424.sql
   - include:
       file: db/changelog/insert-into-animal_types_20230424.sql
@@ -14,6 +18,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/insert-into-fur_colors_20230424.sql
   - include:
-      file: db/changelog/insert-into-pets_20230424.sql
+      file: db/changelog/insert-into-users-20230425.sql
   - include:
-      file: db/changelog/insert-into-users_20230425.sql
+      file: db/changelog/insert-into-authorities-20230426.sql
+  - include:
+      file: db/changelog/insert-into-pets_20230424.sql

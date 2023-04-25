@@ -13,13 +13,13 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 @SpringBootApplication
 public class BackendApplication {
 
-    @Bean
-    DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(H2)
-                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-                .build();
-    }
+//    @Bean
+//    DataSource dataSource() {
+//        return new EmbeddedDatabaseBuilder()
+//                .setType(H2)
+////                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
+//                .build();
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
