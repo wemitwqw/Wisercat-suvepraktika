@@ -1,8 +1,6 @@
 package ee.vladislav.backend.controller;
 
 import ee.vladislav.backend.service.SelectorsService;
-import org.hibernate.mapping.Any;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +14,14 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping(value = "/api/selectors/")
 public class SelectorsController {
 
-//    @Autowired
-//    SelectorsService selectorsService;
+    private final SelectorsService selectorsService;
 
-//    @GetMapping("/")
-//    public List<Any> getAll() throws ExecutionException {
-//        return selectorsService.getAllSelectorData();
-//    }
+    public SelectorsController(SelectorsService selectorsService) {
+        this.selectorsService = selectorsService;
+    }
+
+    @GetMapping("/")
+    public List<List<String>> getAll() throws ExecutionException {
+        return selectorsService.getAllSelectorData();
+    }
 }

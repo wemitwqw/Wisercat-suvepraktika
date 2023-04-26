@@ -2,7 +2,6 @@ package ee.vladislav.backend.service;
 
 import ee.vladislav.backend.model.User;
 import ee.vladislav.backend.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

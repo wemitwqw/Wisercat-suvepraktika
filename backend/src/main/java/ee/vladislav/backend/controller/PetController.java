@@ -3,19 +3,14 @@ package ee.vladislav.backend.controller;
 import ee.vladislav.backend.dto.PetDTO;
 import ee.vladislav.backend.exceptions.PetNotAddedException;
 import ee.vladislav.backend.exceptions.PetNotFoundException;
-import ee.vladislav.backend.model.Pet;
 import ee.vladislav.backend.service.PetService;
 import ee.vladislav.backend.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -35,10 +30,6 @@ public class PetController {
     @GetMapping("/")
     public ResponseEntity<List<PetDTO>> getPets(Principal principal) {
         String userName = principal.getName();
-//        if(!userService.checkUserNameExists(userName)){
-//            return ResponseEntity.ok().body(new ArrayList<>());
-//        }
-
         List<PetDTO> pets = petService.getAllPetsByUserName(userName);
 
         return ResponseEntity.ok().body(pets);

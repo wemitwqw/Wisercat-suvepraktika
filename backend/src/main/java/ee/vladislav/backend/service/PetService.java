@@ -4,16 +4,11 @@ import ee.vladislav.backend.dto.PetDTO;
 import ee.vladislav.backend.exceptions.*;
 import ee.vladislav.backend.mapper.PetDTOMapper;
 import ee.vladislav.backend.model.*;
-import ee.vladislav.backend.repository.AnimalTypeRepo;
-import ee.vladislav.backend.repository.CountryRepo;
-import ee.vladislav.backend.repository.FurColorRepo;
 import ee.vladislav.backend.repository.PetRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.hibernate.Hibernate.map;
 
 @Service
 public class PetService {
@@ -31,13 +26,6 @@ public class PetService {
         this.userService = userService;
     }
 
-//    public List<PetDTO> getAllPets() {
-//        return petRepository.findAll()
-//                .stream()
-//                .map(petDTOMapper::entityToDto)
-//                .collect(Collectors.toList());
-//    }
-
     public List<PetDTO> getAllPetsByUserName(String userName) {
         return petRepository.getPetsByAddedBy_Username(userName)
                 .stream()
@@ -48,7 +36,6 @@ public class PetService {
     public PetDTO getById(String id, String userName){
 
         return petRepository.findPetByIdAndAddedBy_Username(id, userName).map(petDTOMapper::entityToDto).orElse(null);
-//        return petRepository.findById(id).map(petDTOMapper::entityToDto).orElse(null);
     }
 
     public PetDTO addPet(PetDTO petDTO, String userName) {

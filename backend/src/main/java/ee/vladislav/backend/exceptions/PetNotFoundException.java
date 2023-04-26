@@ -1,7 +1,6 @@
 package ee.vladislav.backend.exceptions;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.Errors;
 
 public class PetNotFoundException extends RuntimeException {
     private final String message = "Pet with the provided id either does not exist or You don't have permission to view and modify it!";
