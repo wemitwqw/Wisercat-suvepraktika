@@ -20,11 +20,9 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping(value = "/api/pets")
 public class PetController {
     private final PetService petService;
-    private final UserService userService;
 
-    public PetController(PetService petService, UserService userService) {
+    public PetController(PetService petService) {
         this.petService = petService;
-        this.userService = userService;
     }
 
     @GetMapping("/")

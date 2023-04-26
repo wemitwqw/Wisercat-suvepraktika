@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PetsDataService as PetService } from '../../services/pets-data.service'
-import { IPet } from 'src/app/models/pet';
+import { PetService } from '../../_service/pet.service'
+import { IPet } from 'src/app/_model/pet';
 
 @Component({
   selector: 'app-edit',

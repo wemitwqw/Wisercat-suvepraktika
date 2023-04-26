@@ -37,9 +37,8 @@ public class SecurityConfiguration {
 //                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
 //                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/pets/**").authenticated()
+                        .requestMatchers( "/api/selectors/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().disable())

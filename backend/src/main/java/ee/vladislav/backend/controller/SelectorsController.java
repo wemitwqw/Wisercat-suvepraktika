@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -21,7 +22,7 @@ public class SelectorsController {
     }
 
     @GetMapping("/")
-    public List<List<String>> getAll() throws ExecutionException {
+    public Map<String, List<String>> getAll() throws ExecutionException {
         return selectorsService.getAllSelectorData();
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPet } from '../models/pet';
+import { IPet } from '../_model/pet';
 import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -12,9 +12,8 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-
-export class PetsDataService {
-  private apiUrl = 'http://localhost:8080/api/';
+export class PetService {
+  private apiUrl = 'http://localhost:8080/api/pets/';
 
   constructor(private http: HttpClient) {}
 
@@ -34,7 +33,4 @@ export class PetsDataService {
     return this.http.post<IPet>(this.apiUrl + 'edit', pet, httpOptions);
   }
 
-  getSelectorData(): Observable<{}> {
-    return this.http.get<{}>(this.apiUrl + 'selectors/')
-  }
 }

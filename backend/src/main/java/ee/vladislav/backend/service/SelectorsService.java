@@ -15,7 +15,9 @@ import ee.vladislav.backend.repository.AnimalTypeRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,8 +64,9 @@ public class SelectorsService {
         return countryEnt;
     }
 
-    public List<List<String>> getAllSelectorData() {
-        List<List<String>> selectors = new ArrayList<>();
+    public Map<String, List<String>> getAllSelectorData() {
+
+        Map<String, List<String>> selectors = new HashMap<>();
 
         List<String> colors = furColorRepository.findAll()
                 .stream()
@@ -80,9 +83,9 @@ public class SelectorsService {
                 .map(type -> animalTypeDTOMapper.entityToDto(type).getType())
                 .collect(Collectors.toList());
 
-        selectors.add(types);
-        selectors.add(colors);
-        selectors.add(countries);
+        selectors.put("types", types);
+        selectors.put("colors", colors);
+        selectors.put("countries", countries);
 
         return selectors;
     }

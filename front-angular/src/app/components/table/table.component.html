@@ -15,9 +15,9 @@
             <th scope="row">{{ pet.id }}</th>
             <td>{{ pet.name }}</td>
             <td>{{ pet.code }}</td>
-            <td>{{ pet.animalType.animalType }}</td>
-            <td>{{ pet.fur_color.animalFurColor }}</td>
-            <td>{{ pet.country.animalCountry }}</td>
+            <td>{{ pet.animalType }}</td>
+            <td>{{ pet.furColor }}</td>
+            <td>{{ pet.country }}</td>
             <td>
                 <a [ngStyle]="{float: 'right'}" class="btn btn-primary" (click)="handleEditPet(pet)">Edit pet</a>
             </td>

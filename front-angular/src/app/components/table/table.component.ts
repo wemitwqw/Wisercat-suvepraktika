@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IPet } from 'src/app/models/pet';
+import { IPet } from 'src/app/_model/pet';
 import { Router } from '@angular/router';
 
 @Component({

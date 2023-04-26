@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, createPlatform } from '@angular/core';
-import { IPet } from 'src/app/models/pet';
-import { FormControl, FormGroup, Validators } from '@angular/forms'; 
-import { PetsDataService as PetService } from '../../services/pets-data.service'
+import { IPet } from 'src/app/_model/pet';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { SelectorsService } from 'src/app/_service/selectors.service'
 import { ActivatedRoute, Router } from '@angular/router';
+import { ISelectors } from 'src/app/_model/selectors';
+import { PetService } from 'src/app/_service/pet.service';
 
 @Component({
   selector: 'app-edit-form',
@@ -13,28 +15,23 @@ export class EditFormComponent implements OnChanges, OnInit {
   @Input() 
   pet: IPet; 
 
-  animal_types: any;
-  animal_fur_colors: any;
-  animal_countries: any;
+  selectors: ISelectors;
 
   form: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private petService: PetService) {} 
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private petService: PetService, private selectorsService: SelectorsService) {} 
 
   ngOnInit() {
-    this.petService.getSelectorData().subscribe((data) => {
-      const parsed = Object.values(data);
-      this.animal_types = parsed[0];
-      this.animal_fur_colors = parsed[1];
-      this.animal_countries = parsed[2];
+    this.selectorsService.getSelectorData().subscribe((data) => {
+      this.selectors = data;
     });
 
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required]),
-      code: new FormControl(null, [Validators.required]),
-      animalType: new FormControl('defTyp', [Validators.required]),
-      fur_color: new FormControl('defCol', [Validators.required]),
-      country: new FormControl('defCountr', [Validators.required])
+      name: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(30), Validators.pattern('\b[A-Z][a-zA-Z]*\b')]),
+      code: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[a-z0-9]+')]),
+      animalType: new FormControl('defTyp', [Validators.required, Validators.pattern('[a-z]+'), Validators.minLength(3), Validators.maxLength(20)]),
+      furColor: new FormControl('defCol', [Validators.required, Validators.pattern('[a-z]+'), Validators.minLength(3), Validators.maxLength(20)]),
+      country: new FormControl('defCountr', [Validators.required, Validators.pattern('\b[A-Z][a-zA-Z]*\b'), Validators.minLength(3), Validators.maxLength(20)])
     });
   }
 
@@ -43,9 +40,9 @@ export class EditFormComponent implements OnChanges, OnInit {
       this.form.setValue({
         name: this.pet.name,
         code: this.pet.code,
-        animalType: this.pet.animalType.animalType,
-        fur_color: this.pet.fur_color.animalFurColor,
-        country: this.pet.country.animalCountry
+        animalType: this.selectors.types,
+        fuColor: this.selectors.colors,
+        country: this.selectors.countries
       });
     }
   }
@@ -56,22 +53,12 @@ export class EditFormComponent implements OnChanges, OnInit {
     if(this.form.valid){
       const fields = this.f;
 
-      const typeToSubmit = (this.animal_types.filter((obj: { animalType: any; }) => {
-        return obj.animalType == fields.animalType.value
-      }))
-      const furToSubmit = this.animal_fur_colors.find((obj: { animalFurColor: any; }) => {
-        return obj.animalFurColor == fields.fur_color.value
-      })
-      const countryToSubmit = (this.animal_countries.filter((obj: { animalCountry: any; }) => {
-        return obj.animalCountry == fields.country.value
-      }))
-
       const submittedPet = {
         "name": fields.name.value,
         "code": fields.code.value,
-        "animalType": typeToSubmit[0],
-        "fur_color": furToSubmit,
-        "country": countryToSubmit[0]
+        "animalType": fields.animalType.value,
+        "furColor": fields.furColor.value,
+        "country": fields.country.value
       };
 
       if(this.pet){

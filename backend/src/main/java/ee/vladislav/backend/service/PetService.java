@@ -96,6 +96,7 @@ public class PetService {
     }
 
     private User getUser(String userName) {
+
         return userService.getUserByUserName(userName);
     }
 }
