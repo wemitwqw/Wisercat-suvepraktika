@@ -4,7 +4,7 @@ import ee.vladislav.backend.dto.PetDTO;
 import ee.vladislav.backend.model.Pet;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Function;
+//import java.util.function.Function;
 
 @Service
 public class PetDTOMapper {
@@ -15,7 +15,8 @@ public class PetDTOMapper {
                 pet.getCode(),
                 pet.getAnimalType().getType(),
                 pet.getFurColor().getColor(),
-                pet.getCountry().getCountry()
+                pet.getCountry().getCountry(),
+                pet.getAddedBy().getUsername()
         );
     }
 }

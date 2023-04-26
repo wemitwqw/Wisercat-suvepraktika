@@ -39,4 +39,7 @@ public class PetDTO {
     @Size(max = 20, message = "Country length cannot exceed 20 characters!")
     private String country;
 
+    @Size(max = 20, message = "addedBy field length cannot exceed 20 characters!")
+    private String addedBy;
+
 }

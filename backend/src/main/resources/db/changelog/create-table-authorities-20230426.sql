@@ -5,5 +5,6 @@
 CREATE TABLE authorities (
     username VARCHAR(30) NOT NULL,
     authority VARCHAR(10) NOT NULL,
-    PRIMARY KEY (username)
+    PRIMARY KEY (username),
+    FOREIGN KEY (username) references users(username)
 );

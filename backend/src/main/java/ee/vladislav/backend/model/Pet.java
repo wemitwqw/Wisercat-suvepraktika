@@ -48,4 +48,9 @@ public class Pet {
     @JoinColumn(name="country_id", referencedColumnName = "id")
     private Country country;
 
+    @NotNull
+    @OneToOne
+    @JoinColumn(name="added_by", referencedColumnName = "username")
+    private User addedBy;
+
 }

@@ -9,8 +9,10 @@ CREATE TABLE pets (
     animal_type_id INT NOT NULL,
     fur_color_id INT NOT NULL,
     country_id INT NOT NULL,
+    added_by VARCHAR NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (animal_type_id) REFERENCES animal_types,
     FOREIGN KEY (country_id) REFERENCES countries,
-    FOREIGN KEY (fur_color_id) REFERENCES fur_colors
+    FOREIGN KEY (fur_color_id) REFERENCES fur_colors,
+    FOREIGN KEY (added_by) REFERENCES users(username)
 );

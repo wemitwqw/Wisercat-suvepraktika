@@ -3,10 +3,7 @@ package ee.vladislav.backend.service;
 import ee.vladislav.backend.dto.PetDTO;
 import ee.vladislav.backend.exceptions.*;
 import ee.vladislav.backend.mapper.PetDTOMapper;
-import ee.vladislav.backend.model.AnimalType;
-import ee.vladislav.backend.model.Country;
-import ee.vladislav.backend.model.FurColor;
-import ee.vladislav.backend.model.Pet;
+import ee.vladislav.backend.model.*;
 import ee.vladislav.backend.repository.AnimalTypeRepo;
 import ee.vladislav.backend.repository.CountryRepo;
 import ee.vladislav.backend.repository.FurColorRepo;
@@ -22,15 +19,24 @@ public class PetService {
     private final PetRepo petRepository;
     private final PetDTOMapper petDTOMapper;
     private final SelectorsService selectorsService;
+    private final UserService userService;
 
     public PetService(PetRepo petRepository, PetDTOMapper petDTOMapper,
-                      SelectorsService selectorsService) {
+                      SelectorsService selectorsService, UserService userService) {
         this.petRepository = petRepository;
         this.petDTOMapper = petDTOMapper;
         this.selectorsService = selectorsService;
+        this.userService = userService;
     }
 
-    public List<PetDTO> getAllPets() {
+//    public List<PetDTO> getAllPets() {
+//        return petRepository.findAll()
+//                .stream()
+//                .map(petDTOMapper::entityToDto)
+//                .collect(Collectors.toList());
+//    }
+
+    public List<PetDTO> getAllPetsByUserName(String userName) {
         return petRepository.findAll()
                 .stream()
                 .map(petDTOMapper::entityToDto)
@@ -48,8 +54,9 @@ public class PetService {
         AnimalType type = getAnimalType(petDTO.getAnimalType());
         FurColor color = getFurColor(petDTO.getFurColor());
         Country country = getCountry(petDTO.getCountry());
+        User user = getUser(petDTO.getAddedBy());
 
-        Pet savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country));
+        Pet savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
 
         return petDTOMapper.entityToDto(savedPet);
     }
@@ -64,10 +71,12 @@ public class PetService {
         AnimalType type = getAnimalType(petDTO.getAnimalType());
         FurColor color = getFurColor(petDTO.getFurColor());
         Country country = getCountry(petDTO.getCountry());
+        User user = getUser(petDTO.getAddedBy());
 
         petFromDb.setAnimalType(type);
         petFromDb.setFurColor(color);
         petFromDb.setCountry(country);
+        petFromDb.setAddedBy(user);
 
         Pet savedPet = petRepository.save(petFromDb);
 
@@ -76,7 +85,9 @@ public class PetService {
                 savedPet.getCode(),
                 savedPet.getAnimalType().getType(),
                 savedPet.getFurColor().getColor(),
-                savedPet.getCountry().getCountry());
+                savedPet.getCountry().getCountry(),
+                savedPet.getAddedBy().getUsername()
+        );
     }
 
     private AnimalType getAnimalType(String type) {
@@ -92,5 +103,9 @@ public class PetService {
     private Country getCountry(String country) {
 
         return selectorsService.getCountryByCountry(country);
+    }
+
+    private User getUser(String userName) {
+        return userService.getUserByUsername(userName);
     }
 }

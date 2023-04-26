@@ -27,24 +27,10 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-
-//    @Autowired
-//    private AppBasicAuthenticationEntryPoint authenticationEntryPoint;
-
     private final DataSource dataSource;
     public SecurityConfiguration(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
-////                .authoritiesByUsernameQuery("SELECT username, role FROM user_roles WHERE username = ?");
-////                .authoritiesByUsernameQuery("select user_id, authority from authorities where user_id = ?")
-////                .userDetailsService(userDetailsService);
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity)
@@ -63,49 +49,18 @@ public class SecurityConfiguration {
                 )
                 .headers(headers -> headers.frameOptions().disable())
                 .httpBasic(withDefaults());
-//                .httpBasic.authenticationEntryPoint(authenticationEntryPoint);
         return httpSecurity.build();
     }
 
     @Bean
     public UserDetailsService jdbcUserDetailsService(DataSource dataSource) {
-
-//        UserDetails user = User
-//                .withUsername("user")
-//                .password("password")
-//                .roles("USER_ROLE")
-//                .build();
-
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-//        users.createUser(user);
         return users;
     }
-
-//    @Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails user = User
-//                .withUsername("user")
-////                .password("$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG")
-//                .password("password")
-//                .roles("USER_ROLE")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/js/**", "/images/**"));
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder(8);
-//    }
-
 
 }
