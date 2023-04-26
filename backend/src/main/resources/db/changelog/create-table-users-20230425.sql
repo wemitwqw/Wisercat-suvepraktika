@@ -6,5 +6,6 @@ CREATE TABLE users (
    id INT NOT NULL AUTO_INCREMENT,
    username VARCHAR_IGNORECASE NOT NULL,
    password VARCHAR_IGNORECASE NOT NULL,
+   enabled boolean NOT NULL,
    PRIMARY KEY (id)
 );

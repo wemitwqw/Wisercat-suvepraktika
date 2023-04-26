@@ -46,3 +46,5 @@ values ('Lexie', 'v9xobfp6', 3, 1, 1, 2);
 
 insert into pets (name, code, animal_type_id, fur_color_id, country_id, owner_id)
 values ('Gretal', 'y4jrbck3', 1, 2, 2, 2);
+
+--     CONSTRAINT fk_authorities_users FOREIGN KEY(user_id) REFERENCES users(id)
