@@ -4,6 +4,7 @@ package ee.vladislav.backend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,12 +40,14 @@ public class SecurityConfiguration {
         httpSecurity
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
-                )
+                .csrf().disable()
+//                .csrf(csrf -> csrf
+//                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
+//                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/pets/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().disable())
@@ -54,13 +57,12 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService jdbcUserDetailsService(DataSource dataSource) {
-        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-        return users;
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder(8);
     }
 
 }

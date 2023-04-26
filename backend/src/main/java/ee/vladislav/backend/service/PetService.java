@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hibernate.Hibernate.map;
+
 @Service
 public class PetService {
 
@@ -37,32 +39,33 @@ public class PetService {
 //    }
 
     public List<PetDTO> getAllPetsByUserName(String userName) {
-        return petRepository.findAll()
+        return petRepository.getPetsByAddedBy_Username(userName)
                 .stream()
                 .map(petDTOMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
-    public PetDTO getById(String id) {
+    public PetDTO getById(String id, String userName){
 
-        return petRepository.findById(id).map(petDTOMapper::entityToDto).orElse(null);
+        return petRepository.findPetByIdAndAddedBy_Username(id, userName).map(petDTOMapper::entityToDto).orElse(null);
+//        return petRepository.findById(id).map(petDTOMapper::entityToDto).orElse(null);
     }
 
-    public PetDTO addPet(PetDTO petDTO) {
+    public PetDTO addPet(PetDTO petDTO, String userName) {
         if (petRepository.existsPetByCode(petDTO.getCode())) {throw new PetCodeAlreadyExistsException(); }
 
         AnimalType type = getAnimalType(petDTO.getAnimalType());
         FurColor color = getFurColor(petDTO.getFurColor());
         Country country = getCountry(petDTO.getCountry());
-        User user = getUser(petDTO.getAddedBy());
+        User user = getUser(userName);
 
         Pet savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
 
         return petDTOMapper.entityToDto(savedPet);
     }
-    public PetDTO editPet(String id, PetDTO petDTO) {
+    public PetDTO editPet(String id, PetDTO petDTO, String userName) {
 
-        Pet petFromDb = petRepository.findById(id).orElse(null);
+        Pet petFromDb = petRepository.findPetByIdAndAddedBy_Username(id, userName).orElse(null);
         if (petFromDb == null) { throw new PetNotFoundException(); }
 
         petFromDb.setName(petDTO.getName());
@@ -71,7 +74,7 @@ public class PetService {
         AnimalType type = getAnimalType(petDTO.getAnimalType());
         FurColor color = getFurColor(petDTO.getFurColor());
         Country country = getCountry(petDTO.getCountry());
-        User user = getUser(petDTO.getAddedBy());
+        User user = getUser(userName);
 
         petFromDb.setAnimalType(type);
         petFromDb.setFurColor(color);
@@ -106,6 +109,6 @@ public class PetService {
     }
 
     private User getUser(String userName) {
-        return userService.getUserByUsername(userName);
+        return userService.getUserByUserName(userName);
     }
 }

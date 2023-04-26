@@ -35,9 +35,9 @@ public class PetController {
     @GetMapping("/")
     public ResponseEntity<List<PetDTO>> getPets(Principal principal) {
         String userName = principal.getName();
-        if(!userService.checkUserNameExists(userName)){
-            return ResponseEntity.ok().body(new ArrayList<>());
-        }
+//        if(!userService.checkUserNameExists(userName)){
+//            return ResponseEntity.ok().body(new ArrayList<>());
+//        }
 
         List<PetDTO> pets = petService.getAllPetsByUserName(userName);
 
@@ -45,24 +45,24 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PetDTO> getPetById(@PathVariable String id) {
-        PetDTO pet = petService.getById(id);
+    public ResponseEntity<PetDTO> getPetById(@PathVariable String id, Principal principal) {
+        PetDTO pet = petService.getById(id, principal.getName());
         if (pet == null) { throw new PetNotFoundException(); }
 
         return ResponseEntity.ok().body(pet);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<PetDTO> addPet(@Valid @RequestBody PetDTO petDTO) {
-        PetDTO savedPet = petService.addPet(petDTO);
+    public ResponseEntity<PetDTO> addPet(@Valid @RequestBody PetDTO petDTO, Principal principal) {
+        PetDTO savedPet = petService.addPet(petDTO, principal.getName());
         if (savedPet == null) { throw new PetNotAddedException(); }
 
         return ResponseEntity.status(CREATED).body(savedPet);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<PetDTO> editPet(@PathVariable String id, @Valid @RequestBody PetDTO petDTO) {
-        PetDTO savedPet = petService.editPet(id, petDTO);
+    public ResponseEntity<PetDTO> editPet(@PathVariable String id, @Valid @RequestBody PetDTO petDTO, Principal principal) {
+        PetDTO savedPet = petService.editPet(id, petDTO, principal.getName());
         if (savedPet == null) { throw new PetNotAddedException(); }
 
         return ResponseEntity.status(OK).body(savedPet);
