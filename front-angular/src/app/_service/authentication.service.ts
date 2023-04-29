@@ -36,20 +36,15 @@ export class AuthenticationService {
         let request = this.http.post<any>(`http://localhost:8080/api/auth/login`, JSON.stringify({ username, password }), httpOptions).pipe(
             catchError(error => {
               const statusCode = error.status;
-
               return throwError(error);
             })
           )
           .subscribe(response => {
-            console.log(response.json());
+            if (response.status === 'OK'){
+                let user = window.btoa(username + ':' + password);
+                localStorage.setItem('user', JSON.stringify(user));
+            }
           });
-
-        // .pipe(map(user => {
-        //     user = window.btoa(username + ':' + password);
-        //     localStorage.setItem('user', JSON.stringify(user));
-        //     // this.userSubject.next(user);
-        //     // return user;
-        // }));
     }
 
     logout() {

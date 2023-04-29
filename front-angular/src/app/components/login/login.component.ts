@@ -19,7 +19,7 @@ export class LoginComponent implements OnChanges, OnInit {
       password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[a-z0-9]+')])
     });
 
-    this.authenticationService.login("user1", "password")
+    this.authenticationService.login("user", "password")
   }
   
   ngOnChanges(changes: SimpleChanges): void {

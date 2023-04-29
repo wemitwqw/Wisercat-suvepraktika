@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -36,9 +37,14 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authenticated);
 
-        System.out.println(authenticated);
+        HashMap<String, String> map = new HashMap<>();
+        if (authenticated.isAuthenticated()) {
+            map.put("status", "OK");
+            map.put("username", authenticated.getName());
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }
 
 //    @PostMapping("/")
