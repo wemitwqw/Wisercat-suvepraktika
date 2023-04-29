@@ -18,10 +18,12 @@ public class User {
 
     @Id
     @Size(min = 1, max = 20)
+    @Pattern(regexp = "[a-zA-Z0-9]+", message = "Only letters and numbers allowed in password!")
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Pattern(regexp = "^(?=.*?\\d)(?=.*?[a-zA-Z])[a-zA-Z\\d]+$", message = "Only letters and numbers allowed in password!")
+    @Size(min = 1, max = 35)
+    @Pattern(regexp = "[a-zA-Z0-9]+", message = "Only letters and numbers allowed in password!")
     @Column(nullable = false)
     private String password;
 

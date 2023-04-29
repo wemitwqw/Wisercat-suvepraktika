@@ -13,8 +13,8 @@ public class PetDTOMapper {
                 pet.getCode(),
                 pet.getAnimalType().getType(),
                 pet.getFurColor().getColor(),
-                pet.getCountry().getCountry(),
-                pet.getAddedBy().getUsername()
+                pet.getCountry().getCountry()
+//                pet.getAddedBy().getUsername()
         );
     }
 }

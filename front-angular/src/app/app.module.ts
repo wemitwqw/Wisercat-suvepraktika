@@ -10,8 +10,10 @@ import { HomeComponent } from './components/home/home.component';
 import { EditComponent } from './components/edit/edit.component';
 import { EditFormComponent } from './components/edit-form/edit-form.component';
 import { LoginComponent } from './components/login/login.component';
-import { BasicAuthInterceptor } from './_helper/basic-auth.interceptor';
+import { AuthInterceptor } from './_helper/auth.interceptor';
+import { AuthenticationService } from './_service/authentication.service';
 import { ErrorInterceptor } from './_helper/error.interceptor';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { ErrorInterceptor } from './_helper/error.interceptor';
     EditComponent,
     EditFormComponent,
     LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,8 +33,17 @@ import { ErrorInterceptor } from './_helper/error.interceptor';
     ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

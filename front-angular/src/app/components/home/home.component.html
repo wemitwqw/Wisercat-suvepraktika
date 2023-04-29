@@ -2,6 +2,11 @@
     <h2>Pets</h2>
 </div>
 
-<a routerLink="/edit" class="btn btn-primary">Add pet</a>
+<div class="d-flex justify-content-between">
+    <a routerLink="/edit" class="btn btn-primary">Add pet</a>
+    <a routerLink="/logout" class="btn btn-primary">Logout</a>
+</div>
 
 <app-table [loadedPets]="loadedPets"></app-table>
+
+

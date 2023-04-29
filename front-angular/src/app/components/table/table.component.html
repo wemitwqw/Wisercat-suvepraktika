@@ -11,7 +11,8 @@
     </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let pet of loadedPets">
+        <!-- <tr *ngFor="let pet of loadedPets"> -->
+        <tr *ngFor="let pet of this.stateManager.loadedPets">
             <th scope="row">{{ pet.id }}</th>
             <td>{{ pet.name }}</td>
             <td>{{ pet.code }}</td>

@@ -7,7 +7,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
                 </div>
-                <div *ngIf="f.name.errors?.required && f.name.touched">Name is required</div>
+                <div class="text-danger" *ngIf="f.name.errors?.required && f.name.touched">Name is required</div>
             </div>
 
             <div class="mb-3">
@@ -15,9 +15,9 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="code" placeholder="Code" formControlName="code">
                 </div>
-                <div *ngIf="f.code.errors?.required && f.code.touched">Code is required</div>
-                <div *ngIf="f.code.errors?.pattern && f.code.touched">Сode can consist of lowercase letters and numbers only!</div>
-                <div *ngIf="f.code.errors?.minLength && f.code.touched || f.code.errors?.maxLength && f.code.touched">Сode length must be 8 characters!</div>
+                <div class="text-danger" *ngIf="f.code.errors?.required && f.code.touched">Code is required</div>
+                <div class="text-danger" *ngIf="f.code.errors?.pattern && f.code.touched">Сode can consist of lowercase letters and numbers only!</div>
+                <div class="text-danger" *ngIf="f.code.errors?.minLength && f.code.touched || f.code.errors?.maxLength && f.code.touched">Сode length must be 8 characters!</div>
             </div>
 
             <div *ngIf="f.animalType" class="mb-3">
@@ -26,7 +26,7 @@
                     <option value="defTyp">Choose...</option>
                     <option *ngFor="let type of selectors.types" [ngValue]="type">{{ type }}</option>
                 </select>
-                <div *ngIf="f.animalType.errors?.required && f.animalType.touched">Type is required</div>
+                <div class="text-danger" *ngIf="f.animalType.errors?.required && f.animalType.touched">Type is required</div>
             </div>
 
             <div class="mb-3">
@@ -35,7 +35,7 @@
                     <option value="defCol">Choose...</option>
                     <option *ngFor="let color of selectors.colors" [ngValue]="color">{{ color }}</option>
                 </select>
-                <div *ngIf="f.furColor.errors?.required && f.furColor.touched">Fur color is required</div>
+                <div class="text-danger" *ngIf="f.furColor.errors?.required && f.furColor.touched">Fur color is required</div>
             </div>
 
             <div class="mb-3">
@@ -44,7 +44,7 @@
                     <option value="defCountr">Choose...</option>
                     <option *ngFor="let country of selectors.countries" [ngValue]="country">{{ country }}</option>
                 </select>
-                <div *ngIf="f.country.errors?.required && f.country.touched">Country is required</div>
+                <div class="text-danger" *ngIf="f.country.errors?.required && f.country.touched">Country is required</div>
             </div>
 
             <button class="btn btn-primary btn-lg btn-block"

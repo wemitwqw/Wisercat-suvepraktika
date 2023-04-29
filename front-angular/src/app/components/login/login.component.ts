@@ -8,22 +8,41 @@ import { AuthenticationService } from 'src/app/_service/authentication.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnChanges, OnInit {
+export class LoginComponent implements OnInit {
   form: FormGroup;
+
+  authError: boolean = false;
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
   
-  ngOnInit() {
+  ngOnInit() {    
     this.form = new FormGroup({
-      username: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(30), Validators.pattern('\b[A-Z][a-zA-Z]*\b')]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[a-z0-9]+')])
+      username: new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]+')]),
+      password: new FormControl(null, [Validators.required, Validators.maxLength(35), Validators.pattern('[a-zA-Z0-9]+')])
     });
-
-    this.authenticationService.login("user", "password")
-  }
-  
-  ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
   }
 
+  get f() { return this.form.controls; }
+
+  onSubmit(): void {
+    if(this.form.valid){
+      const fields = this.f;
+
+      this.authenticationService.login(fields.username.value, fields.password.value).subscribe(
+        success => {
+          if (success) {
+            this.router.navigate(['']);
+            if (this.authError){
+              this.authError = false;
+            }
+          }
+        },
+        err => {
+          this.authError = true;
+          this.form.reset();
+        }
+      );
+    }
+  }
 }
+

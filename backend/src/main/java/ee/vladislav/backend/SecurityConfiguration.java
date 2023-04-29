@@ -41,8 +41,9 @@ public class SecurityConfiguration {
             throws Exception {
 
         httpSecurity
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .sessionManagement(sessionManagement -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .csrf().disable()
 //                .csrf(csrf -> csrf
 //                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
@@ -50,7 +51,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                         .requestMatchers("/api/selectors/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
+//                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .cors().and()

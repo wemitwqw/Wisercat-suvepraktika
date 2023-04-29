@@ -75,8 +75,8 @@ public class PetService {
                 savedPet.getCode(),
                 savedPet.getAnimalType().getType(),
                 savedPet.getFurColor().getColor(),
-                savedPet.getCountry().getCountry(),
-                savedPet.getAddedBy().getUsername()
+                savedPet.getCountry().getCountry()
+//                savedPet.getAddedBy().getUsername()
         );
     }
 

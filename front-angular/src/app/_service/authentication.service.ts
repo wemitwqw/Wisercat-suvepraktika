@@ -1,56 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-// import { environment } from '@environments/environment';
-import { IUser } from '../_model/user';
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
-    private userSubject: BehaviorSubject<IUser | null>;
-    public user: Observable<IUser | null>;
+  private apiUrl = 'http://localhost:8080/api/auth';
 
-    constructor(
-        private router: Router,
-        private http: HttpClient
-    ) {
-        this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-        this.user = this.userSubject.asObservable();
-    }
+  constructor(private http: HttpClient) {}
 
-    public get userValue() {
-        return this.userSubject.value;
-    }
+  login(username: string, password: string): Observable<boolean> {
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + btoa(username + ':' + password)
+    });
 
-    login(username: string, password: string) {
-        
-        const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json'
-            })
-        };
-        // this.router.navigate(['/login']);
-        
-        let request = this.http.post<any>(`http://localhost:8080/api/auth/login`, JSON.stringify({ username, password }), httpOptions).pipe(
-            catchError(error => {
-              const statusCode = error.status;
-              return throwError(error);
-            })
-          )
-          .subscribe(response => {
-            if (response.status === 'OK'){
-                let user = window.btoa(username + ':' + password);
-                localStorage.setItem('user', JSON.stringify(user));
-            }
-          });
-    }
+    return this.http.get<any>(`${this.apiUrl}/login`, { headers }).pipe(
+      map(response => {
+        if (response) {
+          localStorage.setItem('currentUser', JSON.stringify({ username, password }));
+          return true;
+        }
+        return false;
+      })
+    );
+  }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('user');
-        this.userSubject.next(null);
-        this.router.navigate(['/login']);
+  logout(): void {
+    localStorage.removeItem('currentUser');
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('currentUser');
+  }
+
+  getAuthHeaders(): HttpHeaders | null {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (currentUser && currentUser.username && currentUser.password) {
+      return new HttpHeaders({
+        Authorization: 'Basic ' + btoa(currentUser.username + ':' + currentUser.password)
+      });
     }
+    return null;
+  }
 }

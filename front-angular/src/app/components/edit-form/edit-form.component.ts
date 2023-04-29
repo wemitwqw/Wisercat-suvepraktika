@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, createPlatform } from '@angular/core';
 import { IPet } from 'src/app/_model/pet';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { FormControl, FormGroup, Validators } from '@angular/forms'; 
 import { SelectorsService } from 'src/app/_service/selectors.service'
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ISelectors } from 'src/app/_model/selectors';
 import { PetService } from 'src/app/_service/pet.service';
+import { StateManager } from 'src/app/_helper/state.manager';
 
 @Component({
   selector: 'app-edit-form',
@@ -19,7 +20,7 @@ export class EditFormComponent implements OnChanges, OnInit {
 
   form: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private petService: PetService, private selectorsService: SelectorsService) {} 
+  constructor(private router: Router, private petService: PetService, private selectorsService: SelectorsService, private stateManager: StateManager) {} 
 
   ngOnInit() {
     this.selectorsService.getSelectorData().subscribe((data) => {
@@ -27,11 +28,11 @@ export class EditFormComponent implements OnChanges, OnInit {
     });
 
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(30), Validators.pattern('\b[A-Z][a-zA-Z]*\b')]),
+      name: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
       code: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[a-z0-9]+')]),
       animalType: new FormControl('defTyp', [Validators.required, Validators.pattern('[a-z]+'), Validators.minLength(3), Validators.maxLength(20)]),
       furColor: new FormControl('defCol', [Validators.required, Validators.pattern('[a-z]+'), Validators.minLength(3), Validators.maxLength(20)]),
-      country: new FormControl('defCountr', [Validators.required, Validators.pattern('\b[A-Z][a-zA-Z]*\b'), Validators.minLength(3), Validators.maxLength(20)])
+      country: new FormControl('defCountr', [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
     });
   }
 
@@ -40,9 +41,9 @@ export class EditFormComponent implements OnChanges, OnInit {
       this.form.setValue({
         name: this.pet.name,
         code: this.pet.code,
-        animalType: this.selectors.types,
-        fuColor: this.selectors.colors,
-        country: this.selectors.countries
+        animalType: this.pet.animalType,
+        furColor: this.pet.furColor,
+        country: this.pet.country
       });
     }
   }
@@ -63,10 +64,13 @@ export class EditFormComponent implements OnChanges, OnInit {
 
       if(this.pet){
         this.petService.updatePet(this.pet.id, submittedPet).subscribe();
+        this.stateManager.updatePet(submittedPet);
         this.router.navigate(['/']);
       }
+
       if(!this.pet){
         this.petService.addPet(submittedPet).subscribe();
+        this.stateManager.addPet(submittedPet);
         this.router.navigate(['/']);
       }
     }

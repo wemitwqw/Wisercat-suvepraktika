@@ -16,7 +16,6 @@ public class PetDTO {
     private Long id;
 
     @NotNull(message = "Name must not be null!")
-    @Pattern(regexp = "\\b[A-Z][a-zA-Z]*\\b", message = "Name must be capitalized!")
     @Size(min = 1, max = 30, message = "Name length must be 1 to 30 characters!")
     private String name;
 
@@ -36,10 +35,9 @@ public class PetDTO {
 
     @NotNull(message = "Country must not be null!")
     @NotEmpty(message = "Country must not be empty string!")
-    @Pattern(regexp = "\\b[A-Z][a-zA-Z]*\\b", message = "Country name must be capitalized!")
     @Size(min = 3, max = 20, message = "Country length must be 20>X>3 characters!")
     private String country;
 
-    private String addedBy;
+//    private String addedBy;
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,32 +25,34 @@ public class AuthController {
     @Autowired
     private AuthenticationProvider authenticationProvider;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
-        );
-
-
-
-        Authentication authenticated = authenticationProvider.authenticate(authentication);
-
-        SecurityContextHolder.getContext().setAuthentication(authenticated);
-
-        HashMap<String, String> map = new HashMap<>();
-        if (authenticated.isAuthenticated()) {
-            map.put("status", "OK");
-            map.put("username", authenticated.getName());
-
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(map);
-    }
-
-//    @PostMapping("/")
-//    public ResponseEntity<String> authenticate(Principal principal) {
+//    @PostMapping("/login")
+//    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(
+//                loginRequest.getUsername(),
+//                loginRequest.getPassword()
+//        );
 //
-//        return ResponseEntity.ok().body("Welcome, " + principal.getName() + "!");
+//
+//
+//        Authentication authenticated = authenticationProvider.authenticate(authentication);
+//
+//        SecurityContextHolder.getContext().setAuthentication(authenticated);
+//
+//        HashMap<String, String> map = new HashMap<>();
+//        if (authenticated.isAuthenticated()) {
+//            map.put("status", "OK");
+//            map.put("username", authenticated.getName());
+//
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(map);
 //    }
+
+    @GetMapping("/login")
+    public ResponseEntity<Map<String, String>> authenticate(Principal principal) {
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "Welcome, " + principal.getName() + "!");
+
+        return ResponseEntity.ok().body(map);
+    }
 }
