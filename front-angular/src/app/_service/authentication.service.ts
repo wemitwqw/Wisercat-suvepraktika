@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 // import { environment } from '@environments/environment';
 import { IUser } from '../_model/user';
@@ -25,13 +25,31 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`http://localhost:8080/api/auth/`, { username, password })
-            .pipe(map(user => {
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
-            }));
+        
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json'
+            })
+        };
+        // this.router.navigate(['/login']);
+        
+        let request = this.http.post<any>(`http://localhost:8080/api/auth/login`, JSON.stringify({ username, password }), httpOptions).pipe(
+            catchError(error => {
+              const statusCode = error.status;
+
+              return throwError(error);
+            })
+          )
+          .subscribe(response => {
+            console.log(response.json());
+          });
+
+        // .pipe(map(user => {
+        //     user = window.btoa(username + ':' + password);
+        //     localStorage.setItem('user', JSON.stringify(user));
+        //     // this.userSubject.next(user);
+        //     // return user;
+        // }));
     }
 
     logout() {

@@ -1,11 +1,16 @@
 package ee.vladislav.backend.controller;
 
 import ee.vladislav.backend.dto.PetDTO;
+import ee.vladislav.backend.model.LoginRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -15,9 +20,30 @@ import java.util.List;
 @RequestMapping(value = "/api/auth")
 public class AuthController {
 
-    @GetMapping("/")
-    public ResponseEntity<String> getPets(Principal principal) {
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
 
-        return ResponseEntity.ok().body("Welcome, " + principal.getName() + "!");
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
+        );
+
+
+
+        Authentication authenticated = authenticationProvider.authenticate(authentication);
+
+        SecurityContextHolder.getContext().setAuthentication(authenticated);
+
+        System.out.println(authenticated);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+//    @PostMapping("/")
+//    public ResponseEntity<String> authenticate(Principal principal) {
+//
+//        return ResponseEntity.ok().body("Welcome, " + principal.getName() + "!");
+//    }
 }
