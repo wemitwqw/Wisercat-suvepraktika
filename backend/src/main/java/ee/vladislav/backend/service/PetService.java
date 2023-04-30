@@ -5,6 +5,7 @@ import ee.vladislav.backend.exceptions.*;
 import ee.vladislav.backend.mapper.PetDTOMapper;
 import ee.vladislav.backend.model.*;
 import ee.vladislav.backend.repository.PetRepo;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +47,14 @@ public class PetService {
         Country country = getCountry(petDTO.getCountry());
         User user = getUser(userName);
 
-        Pet savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
+        Pet savedPet;
+        try {
+            savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
+        } catch (DataIntegrityViolationException e) {
+//            throw new PetNotUpdatedException("Code must be unique!", e.getCause());
+            throw new DataIntegrityViolationException("Code must be unique!", e.getCause());
+        }
+//        Pet savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
 
         return petDTOMapper.entityToDto(savedPet);
     }
@@ -68,7 +76,12 @@ public class PetService {
         petFromDb.setCountry(country);
         petFromDb.setAddedBy(user);
 
-        Pet savedPet = petRepository.save(petFromDb);
+        Pet savedPet;
+        try {
+            savedPet = petRepository.save(petFromDb);
+        } catch (DataIntegrityViolationException e) {
+            throw new PetNotUpdatedException("Code must be unique!", e.getCause());
+        }
 
         return new PetDTO(savedPet.getId(),
                 savedPet.getName(),

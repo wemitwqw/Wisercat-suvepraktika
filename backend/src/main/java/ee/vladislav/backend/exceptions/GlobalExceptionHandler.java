@@ -97,5 +97,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, ex.getStatus());
     }
 
+    @ExceptionHandler(PetNotUpdatedException.class)
+    public ResponseEntity<Object> handlePetNotAdded( PetNotUpdatedException ex, WebRequest webRequest) {
+        ExceptionResponse response = new ExceptionResponse();
+
+        response.setDateTime(LocalDateTime.now());
+        response.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(response, ex.getStatus());
+    }
+
 
 }

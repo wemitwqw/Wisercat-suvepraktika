@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, createPlatform } from '@angular/core';
 import { IPet } from 'src/app/_model/pet';
-import { FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { FormControl, FormGroup, Validators  } from '@angular/forms'; 
 import { SelectorsService } from 'src/app/_service/selectors.service'
 import { Router } from '@angular/router';
 import { ISelectors } from 'src/app/_model/selectors';
@@ -19,6 +19,8 @@ export class EditFormComponent implements OnChanges, OnInit {
   selectors: ISelectors;
 
   form: FormGroup;
+
+  error: string
 
   constructor(private router: Router, private petService: PetService, private selectorsService: SelectorsService, private stateManager: StateManager) {} 
 
@@ -54,7 +56,7 @@ export class EditFormComponent implements OnChanges, OnInit {
     if(this.form.valid){
       const fields = this.f;
 
-      const submittedPet = {
+      const petToSubmit = {
         "name": fields.name.value,
         "code": fields.code.value,
         "animalType": fields.animalType.value,
@@ -63,15 +65,24 @@ export class EditFormComponent implements OnChanges, OnInit {
       };
 
       if(this.pet){
-        this.petService.updatePet(this.pet.id, submittedPet).subscribe();
-        this.stateManager.updatePet(submittedPet);
-        this.router.navigate(['/']);
+        this.petService.updatePet(this.pet.id, petToSubmit).subscribe({
+          next: (res) => {
+            if(this.error) {this.error = ""}
+            this.stateManager.updatePet(petToSubmit);
+          },
+          error: (e) => {this.error = e;}
+        });
       }
 
       if(!this.pet){
-        this.petService.addPet(submittedPet).subscribe();
-        this.stateManager.addPet(submittedPet);
-        this.router.navigate(['/']);
+        // this.petService.addPet(petToSubmit).subscribe();
+        this.petService.addPet(petToSubmit).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.stateManager.addPet(petToSubmit);
+          },
+          error: (e) => {this.error = e;}
+        });
       }
     }
   }

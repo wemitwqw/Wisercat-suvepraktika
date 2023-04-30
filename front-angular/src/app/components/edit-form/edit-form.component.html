@@ -47,6 +47,8 @@
                 <div class="text-danger" *ngIf="f.country.errors?.required && f.country.touched">Country is required</div>
             </div>
 
+            <div class="text-danger" *ngIf="this.error">{{ this.error }}</div>
+
             <button class="btn btn-primary btn-lg btn-block"
                     type="submit"
                     [disabled]="!form.valid"

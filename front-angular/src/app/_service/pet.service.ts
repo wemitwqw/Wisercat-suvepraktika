@@ -30,7 +30,7 @@ export class PetService {
   }
 
   addPet(pet: IPet): Observable<IPet> {
-    return this.http.post<IPet>(this.apiUrl + 'edit', pet, httpOptions);
+    return this.http.post<IPet>(this.apiUrl + 'add', pet, httpOptions);
   }
 
 }

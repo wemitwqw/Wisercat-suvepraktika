@@ -50,7 +50,7 @@ public class SecurityConfiguration {
 //                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers("/api/selectors/**").permitAll()
+//                        .requestMatchers("/api/selectors/**").permitAll()
 //                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
