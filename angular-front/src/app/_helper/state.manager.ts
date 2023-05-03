@@ -20,4 +20,5 @@ export class StateManager {
     this.loadedPets = [...this.loadedPets, pet];
     this.router.navigate(['/']);
   }
+
 }
