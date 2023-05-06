@@ -1,0 +1,8 @@
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    border-bottom: solid 1px rgb(0, 0, 0);
+}

@@ -1,28 +1,47 @@
 <table class="table table-sort">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col alpha-sort">Name</th>
-            <th scope="col">Code</th>
-            <th scope="col">Type</th>
-            <th scope="col">Fur color</th>
-            <th scope="col">Country</th>
-            <th></th>
+            <th [class.active]="order==='id'" scope="col" (click)="order='id'; reverse=!reverse" >
+                ID
+                <span *ngIf="order==='id'" [hidden]="reverse">▼</span>
+                <span *ngIf="order==='id'" [hidden]="!reverse">▲</span>
+            </th>
+            <th [class.active]="order==='name'" scope="col" (click)="order='name'; reverse=!reverse">
+                Name 
+                <span *ngIf="order==='name'" [hidden]="reverse">▼</span>
+                <span *ngIf="order==='name'" [hidden]="!reverse">▲</span></th>
+            <th [class.active]="order==='code'" scope="col" (click)="order='code'; reverse=!reverse">
+                Code 
+                <span *ngIf="order==='code'" [hidden]="reverse">▼</span>
+                <span *ngIf="order==='code'" [hidden]="!reverse">▲</span></th>
+            <th [class.active]="order==='animalType'" scope="col" (click)="order='animalType'; reverse=!reverse">
+                Type
+                <span *ngIf="order==='animalType'" [hidden]="reverse">▼</span>
+                <span *ngIf="order==='animalType'" [hidden]="!reverse">▲</span>
+            </th>
+            <th [class.active]="order==='furColor'" scope="col" (click)="order='furColor'; reverse=!reverse">
+                Fur color
+                <span *ngIf="order==='furColor'" [hidden]="reverse">▼</span>
+                <span *ngIf="order==='furColor'" [hidden]="!reverse">▲</span>
+            </th>
+            <th [class.active]="order==='country'" scope="col" (click)="order='country'; reverse=!reverse">
+                Country
+                <span *ngIf="order==='country'" [hidden]="reverse">▼</span>
+                <span *ngIf="order==='country'" [hidden]="!reverse">▲</span>
+            </th>
         </tr>
     </thead>
     <tbody>
-        <!-- <tr *ngFor="let pet of loadedPets"> -->
-        <tr *ngFor="let pet of this.stateManager.loadedPets">
+        <tr *ngFor="let pet of this.stateManager.loadedPets | orderBy: order: reverse">
             <th scope="row">{{ pet.id }}</th>
-            <td>{{ pet.name }}</td>
-            <td>{{ pet.code }}</td>
-            <td>{{ pet.animalType }}</td>
-            <td>{{ pet.furColor }}</td>
-            <td>{{ pet.country }}</td>
-            <td>
+            <td scope="row">{{ pet.name }}</td>
+            <td scope="row">{{ pet.code }}</td>
+            <td scope="row">{{ pet.animalType }}</td>
+            <td scope="row">{{ pet.furColor }}</td>
+            <td scope="row">{{ pet.country }}</td>
+            <td scope="row">
                 <a [ngStyle]="{float: 'right'}" class="btn btn-primary" (click)="handleEditPet(pet)">Edit pet</a>
             </td>
         </tr>
     </tbody>
 </table>
-<script src="../../../assets/table-sort.js"></script>

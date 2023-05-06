@@ -14,6 +14,7 @@ import { AuthInterceptor } from './_helper/auth.interceptor';
 import { AuthenticationService } from './_service/authentication.service';
 import { ErrorInterceptor } from './_helper/error.interceptor';
 import { LogoutComponent } from './components/logout/logout.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    OrderModule,
   ],
   providers: [
     AuthenticationService,

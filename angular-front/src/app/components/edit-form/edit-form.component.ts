@@ -75,10 +75,8 @@ export class EditFormComponent implements OnChanges, OnInit {
       }
 
       if(!this.pet){
-        // this.petService.addPet(petToSubmit).subscribe();
         this.petService.addPet(petToSubmit).subscribe({
           next: (res) => {
-            console.log(res);
             this.stateManager.addPet(petToSubmit);
           },
           error: (e) => {this.error = e;}

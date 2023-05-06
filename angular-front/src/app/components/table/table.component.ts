@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IPet } from 'src/app/_model/pet';
 import { Router } from '@angular/router';
 import { PetService } from 'src/app/_service/pet.service';
 import { StateManager } from 'src/app/_helper/state.manager';
-// import {tableSort} from 'src/assets/table-sort.js'
+import { OrderPipe } from 'ngx-order-pipe';
 
 
 @Component({
@@ -13,18 +13,22 @@ import { StateManager } from 'src/app/_helper/state.manager';
 })
 export class TableComponent implements OnInit {
 
-  // @Input() 
-  // loadedPets: IPet[] = this.stateManager.loadedPets;
-  // callYep() {tableSort();}
+  order: string = 'id';
+  reverse: boolean = false;
 
-  constructor(private router: Router, public petService: PetService, public stateManager: StateManager){}
+  constructor(private router: Router, public petService: PetService, public stateManager: StateManager, private orderPipe: OrderPipe){}
+
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+    this.order = value;
+  }
 
   ngOnInit(): void {
-      // this.petService.getPets().subscribe((pets) => this.stateManager.loadedPets = pets);
       this.petService.getPets().subscribe({
         next: (data) => {
           this.stateManager.loadedPets = data;
-          // console.log(data);
         },
         error: (e) => console.error(e)
       });

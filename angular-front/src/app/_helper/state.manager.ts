@@ -11,7 +11,6 @@ export class StateManager {
   constructor(private router: Router) { }
 
   updatePet(pet: IPet): void {
-    // this.loadedPets.map((petFromList) => (petFromList.id === pet.id ? { ...petFromList, ...pet } : petFromList))
     this.loadedPets[this.loadedPets.findIndex(petFromList => petFromList.id == pet.id)] = pet;
     this.router.navigate(['/']);
   }
