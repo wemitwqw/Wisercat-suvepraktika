@@ -1,7 +1,3 @@
-import { ICountry } from "./country"
-import { IColor } from "./color"
-import { IAnimalType } from "./animalType"
-
 export interface IPet {
     id?: number
     name: string

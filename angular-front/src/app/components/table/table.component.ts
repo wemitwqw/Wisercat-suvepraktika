@@ -19,9 +19,16 @@ export class TableComponent implements OnInit {
 
   constructor(private router: Router, public petService: PetService, public stateManager: StateManager){}
 
-  ngOnInit() {
-    // this.loadScript('../assets/scripts/index.js');
-  }
+  ngOnInit(): void {
+      // this.petService.getPets().subscribe((pets) => this.stateManager.loadedPets = pets);
+      this.petService.getPets().subscribe({
+        next: (data) => {
+          this.stateManager.loadedPets = data;
+          // console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+    }
 
   handleEditPet(pet: IPet): void {
     this.router.navigate(['edit', pet.id]);

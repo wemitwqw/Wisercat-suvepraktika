@@ -40,4 +40,12 @@ public class PetDTO {
 
 //    private String addedBy;
 
+
+    public PetDTO(String name, String code, String animalType, String furColor, String country) {
+        this.name = name;
+        this.code = code;
+        this.animalType = animalType;
+        this.furColor = furColor;
+        this.country = country;
+    }
 }

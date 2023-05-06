@@ -15,12 +15,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // this.petService.getPets().subscribe((pets) => this.stateManager.loadedPets = pets);
-    this.petService.getPets().subscribe({
-      next: (data) => {
-        this.stateManager.loadedPets = data;
-        // console.log(data);
-      },
-      error: (e) => console.error(e)
-    });
+    // this.petService.getPets().subscribe({
+    //   next: (data) => {
+    //     this.stateManager.loadedPets = data;
+    //     // console.log(data);
+    //   },
+    //   error: (e) => console.error(e)
+    // });
   }
 }
