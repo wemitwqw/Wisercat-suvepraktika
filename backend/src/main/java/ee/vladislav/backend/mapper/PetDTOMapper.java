@@ -14,7 +14,6 @@ public class PetDTOMapper {
                 pet.getAnimalType().getType(),
                 pet.getFurColor().getColor(),
                 pet.getCountry().getCountry()
-//                pet.getAddedBy().getUsername()
         );
     }
 }

@@ -1,6 +1,4 @@
 package ee.vladislav.backend.exceptions;
-
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 
 public class PetNotUpdatedException extends RuntimeException {

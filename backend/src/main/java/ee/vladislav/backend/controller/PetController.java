@@ -5,7 +5,6 @@ import ee.vladislav.backend.exceptions.PetNotAddedException;
 import ee.vladislav.backend.exceptions.PetNotFoundException;
 import ee.vladislav.backend.exceptions.PetNotUpdatedException;
 import ee.vladislav.backend.service.PetService;
-import ee.vladislav.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

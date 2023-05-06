@@ -2,7 +2,6 @@ package ee.vladislav.backend.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -37,9 +36,6 @@ public class PetDTO {
     @NotEmpty(message = "Country must not be empty string!")
     @Size(min = 3, max = 20, message = "Country length must be 20>X>3 characters!")
     private String country;
-
-//    private String addedBy;
-
 
     public PetDTO(String name, String code, String animalType, String furColor, String country) {
         this.name = name;
