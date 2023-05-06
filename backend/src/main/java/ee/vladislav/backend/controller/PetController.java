@@ -3,6 +3,7 @@ package ee.vladislav.backend.controller;
 import ee.vladislav.backend.dto.PetDTO;
 import ee.vladislav.backend.exceptions.PetNotAddedException;
 import ee.vladislav.backend.exceptions.PetNotFoundException;
+import ee.vladislav.backend.exceptions.PetNotUpdatedException;
 import ee.vladislav.backend.service.PetService;
 import ee.vladislav.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -52,7 +53,9 @@ public class PetController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<PetDTO> editPet(@PathVariable String id, @Valid @RequestBody PetDTO petDTO, Principal principal) {
         PetDTO savedPet = petService.editPet(id, petDTO, principal.getName());
-        if (savedPet == null) { throw new PetNotAddedException(); }
+        if (savedPet == null) {
+            throw new PetNotUpdatedException("Pet with the provided id either does not exist or You don't have permission to view and modify it!");
+        }
 
         return ResponseEntity.status(OK).body(savedPet);
     }

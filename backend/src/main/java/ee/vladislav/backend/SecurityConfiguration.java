@@ -45,13 +45,8 @@ public class SecurityConfiguration {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .csrf().disable()
-//                .csrf(csrf -> csrf
-//                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
-//                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-//                        .requestMatchers("/api/selectors/**").permitAll()
-//                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .cors().and()

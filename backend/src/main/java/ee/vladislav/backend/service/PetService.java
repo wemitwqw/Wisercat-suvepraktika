@@ -47,14 +47,14 @@ public class PetService {
         Country country = getCountry(petDTO.getCountry());
         User user = getUser(userName);
 
+        Pet petToSave = new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user);
+
         Pet savedPet;
         try {
-            savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
+            savedPet = petRepository.save(petToSave);
         } catch (DataIntegrityViolationException e) {
-//            throw new PetNotUpdatedException("Code must be unique!", e.getCause());
-            throw new DataIntegrityViolationException("Code must be unique!", e.getCause());
+            throw new PetNotUpdatedException("Code must be unique!", e.getCause());
         }
-//        Pet savedPet = petRepository.save(new Pet(null, petDTO.getName(), petDTO.getCode(), type, color, country, user));
 
         return petDTOMapper.entityToDto(savedPet);
     }
@@ -89,7 +89,6 @@ public class PetService {
                 savedPet.getAnimalType().getType(),
                 savedPet.getFurColor().getColor(),
                 savedPet.getCountry().getCountry()
-//                savedPet.getAddedBy().getUsername()
         );
     }
 

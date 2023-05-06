@@ -25,4 +25,5 @@ public class SelectorsController {
     public Map<String, List<String>> getAll() throws ExecutionException {
         return selectorsService.getAllSelectorData();
     }
+
 }
