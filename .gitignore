@@ -29,7 +29,7 @@ angular-front/!.vscode/tasks.json
 angular-front/!.vscode/launch.json
 angular-front/!.vscode/extensions.json
 angular-front/.history/*
-angular-front/.vscode
+/angular-front/.vscode
 
 # Miscellaneous
 angular-front/.angular/cache
