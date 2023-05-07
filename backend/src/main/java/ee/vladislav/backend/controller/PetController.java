@@ -1,9 +1,6 @@
 package ee.vladislav.backend.controller;
 
 import ee.vladislav.backend.dto.PetDTO;
-import ee.vladislav.backend.exceptions.PetNotAddedException;
-import ee.vladislav.backend.exceptions.PetNotFoundException;
-import ee.vladislav.backend.exceptions.PetNotUpdatedException;
 import ee.vladislav.backend.service.PetService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +33,6 @@ public class PetController {
     @GetMapping("/{id}")
     public ResponseEntity<PetDTO> getPetById(@PathVariable String id, Principal principal) {
         PetDTO pet = petService.getById(id, principal.getName());
-        if (pet == null) { throw new PetNotFoundException(); }
 
         return ResponseEntity.ok().body(pet);
     }
@@ -44,7 +40,6 @@ public class PetController {
     @PostMapping("/add")
     public ResponseEntity<PetDTO> addPet(@Valid @RequestBody PetDTO petDTO, Principal principal) {
         PetDTO savedPet = petService.addPet(petDTO, principal.getName());
-        if (savedPet == null) { throw new PetNotAddedException(); }
 
         return ResponseEntity.status(CREATED).body(savedPet);
     }
@@ -52,9 +47,6 @@ public class PetController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<PetDTO> editPet(@PathVariable String id, @Valid @RequestBody PetDTO petDTO, Principal principal) {
         PetDTO savedPet = petService.editPet(id, petDTO, principal.getName());
-        if (savedPet == null) {
-            throw new PetNotUpdatedException("Pet with the provided id either does not exist or You don't have permission to view and modify it!");
-        }
 
         return ResponseEntity.status(OK).body(savedPet);
     }

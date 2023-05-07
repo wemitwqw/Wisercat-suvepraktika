@@ -36,7 +36,8 @@ public class PetService {
 
     public PetDTO getById(String id, String userName){
 
-        return petRepository.findPetByIdAndAddedBy_Username(id, userName).map(petDTOMapper::entityToDto).orElse(null);
+        return petRepository.findPetByIdAndAddedBy_Username(id, userName).map(petDTOMapper::entityToDto)
+                .orElseThrow(PetNotFoundException::new);
     }
 
     public PetDTO addPet(PetDTO petDTO, String userName) {
@@ -55,6 +56,8 @@ public class PetService {
         } catch (DataIntegrityViolationException e) {
             throw new PetNotUpdatedException("Code must be unique!", e.getCause());
         }
+
+        if (savedPet == null) { throw new PetNotAddedException(); }
 
         return petDTOMapper.entityToDto(savedPet);
     }
@@ -81,6 +84,10 @@ public class PetService {
             savedPet = petRepository.save(petFromDb);
         } catch (DataIntegrityViolationException e) {
             throw new PetNotUpdatedException("Code must be unique!", e.getCause());
+        }
+
+        if (savedPet == null) {
+            throw new PetNotUpdatedException("Pet with the provided id either does not exist or You don't have permission to view and modify it!");
         }
 
         return new PetDTO(savedPet.getId(),
