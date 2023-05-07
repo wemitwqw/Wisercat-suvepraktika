@@ -23,21 +23,21 @@ backend/*.sublime-workspace
 
 
 # Visual Studio Code
-front-angular/.vscode/*
-front-angular/!.vscode/settings.json
-front-angular/!.vscode/tasks.json
-front-angular/!.vscode/launch.json
-front-angular/!.vscode/extensions.json
-front-angular/.history/*
+angular-front/.vscode/*
+angular-front/!.vscode/settings.json
+angular-front/!.vscode/tasks.json
+angular-front/!.vscode/launch.json
+angular-front/!.vscode/extensions.json
+angular-front/.history/*
 
 # Miscellaneous
-front-angular/.angular/cache
-front-angular/.sass-cache/
-front-angular/connect.lock
-front-angular/coverage
-front-angular/libpeerconnection.log
-front-angular/testem.log
-front-angular/typings
+angular-front/.angular/cache
+angular-front/.sass-cache/
+angular-front/connect.lock
+angular-front/coverage
+angular-front/libpeerconnection.log
+angular-front/testem.log
+angular-front/typings
 
 # System files
 .DS_Store
