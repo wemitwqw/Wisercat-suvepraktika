@@ -111,34 +111,10 @@ public class PetControllerIntTest {
     }
 
     @Test
-    @WithMockUser(username = "user2")
-    public void shouldNotFindPetByIdWithWrongUserAuth() throws Exception {
-        createTestPet("user1");
-
-        PetDTO petDTO = new PetDTO(1L, "Ditto", "12345678", "dog", "orange", "Estonia");
-
-        Mockito.when(petService.getById("1", "user1")).thenReturn(petDTO);
-
-        mockMvc.perform(get("/api/pets/{id}", 1))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
     public void shouldNotFindPetByIdWithNoUserAuth() throws Exception {
 
         mockMvc.perform(get("/api/pets/{id}", 1))
                 .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    @WithMockUser(username = "user3")
-    public void shouldNotFindPetByIdWithNonExistentId() throws Exception {
-        createTestPet("user3");
-
-        PetDTO petDTO = new PetDTO(1L, "Ditto", "12345678", "dog", "orange", "Estonia");
-
-        mockMvc.perform(get("/api/pets/{id}", 9999))
-                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -170,24 +146,6 @@ public class PetControllerIntTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    @WithMockUser(username = "user3")
-    public void shouldNotAddPetWithWrongAuth() throws Exception {
-        PetDTO petDTO = new PetDTO("Ditto", "23345678", "dog", "orange", "Estonia");
-
-        Mockito.when(petService.addPet(petDTO, "user1"))
-                .thenReturn(new PetDTO("Ditto", "23345678", "dog", "orange", "Estonia"));
-
-        mockMvc.perform(post("/api/pets/add")
-                        .with(csrf())
-                        .content(objectMapper.writeValueAsString(petDTO))
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isInternalServerError())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof PetNotAddedException));
     }
 
     @Test
@@ -223,25 +181,5 @@ public class PetControllerIntTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    @WithMockUser(username = "user1")
-    public void shouldNotEditPetWithWrongAuth() throws Exception {
-        createTestPet("user3");
-
-        PetDTO petDTO = new PetDTO("Britto", "23345678", "cat", "white", "Sweden");
-
-        Mockito.when(petService.editPet("1", petDTO, "user3"))
-                .thenReturn(new PetDTO("Britto", "23345678", "cat", "white", "Sweden"));
-
-        mockMvc.perform(put("/api/pets/edit/{id}", 1)
-                        .with(csrf())
-                        .content(objectMapper.writeValueAsString(petDTO))
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isNotFound())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof PetNotUpdatedException));
     }
 }

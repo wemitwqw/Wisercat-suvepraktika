@@ -34,7 +34,7 @@ public class PetService {
                 .collect(Collectors.toList());
     }
 
-    public PetDTO getById(String id, String userName){
+    public PetDTO getById(String id, String userName) {
 
         return petRepository.findPetByIdAndAddedBy_Username(id, userName).map(petDTOMapper::entityToDto)
                 .orElseThrow(PetNotFoundException::new);
