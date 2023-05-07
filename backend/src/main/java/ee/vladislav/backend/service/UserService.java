@@ -15,8 +15,4 @@ public class UserService {
     public User getUserByUserName(String username) {
         return userRepo.findByUsername(username).orElse(null);
     }
-
-    public Boolean checkUserNameExists(String username) {
-        return userRepo.existsByUsername(username);
-    }
 }
