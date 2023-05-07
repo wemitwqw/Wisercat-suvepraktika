@@ -3,7 +3,7 @@ The following project was done as a solution for an internship test task and doe
  
 ## Prerequisites
 
-* Java 17
+* Java 20
 * Maven 3.9.1
 * Node 19.3.0
 * NPM 9.6.4
