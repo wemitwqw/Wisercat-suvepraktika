@@ -20,7 +20,7 @@ The following project was done as a solution for an internship test task and doe
    mvn spring-boot:run
    ```
 
-4. In another terminal instance, run the frontend (will download node_modules automatically)
+4. In another terminal instance, navigate to /angular-front and run the frontend (will download node_modules automatically)
    ```sh
    npm start
    ```
