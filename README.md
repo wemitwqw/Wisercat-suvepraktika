@@ -25,7 +25,7 @@ The following project was done as a solution for an internship test task and doe
    npm start
    ```
    
-5. Now you can use the application.
+5. Now you can use the application @ http://localhost:4200
 
 ## NB! Built-in users
 * user1:password
